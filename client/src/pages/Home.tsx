@@ -26,10 +26,11 @@ const Home = () => {
   const [sport, setSport] = useState("");
   const [featuredTurfs, setTurfs] = useState([]);
   const navigate = useNavigate();
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  
   useEffect(() => {
     axios
-      .get("http://192.168.0.108:8000/turf/getallturf")
+      .get(`${backendUrl}/turf/getallturf`)
       .then((res) => {
         setTurfs((res.data.turfs || []).slice(0, 3)); // Only keep 3 turfs
       })
@@ -136,7 +137,7 @@ const Home = () => {
                 <CardContent className="p-0">
                   <div className="relative overflow-hidden">
                     <img
-                      src={`http://192.168.0.108:8000/${turf.images?.[0]?.replace(/\\/g, "/")}`}
+                      src={`${backendUrl}/${turf.images?.[0]?.replace(/\\/g, "/")}`}
 
                       alt={turf.name}
                       className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
