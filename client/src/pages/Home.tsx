@@ -166,7 +166,7 @@ const Home = () => {
                     </div>
                     <Button
                       className="w-full btn-primary rounded-xl"
-                      onClick={() => navigate(`/turf/${turf.id}`)}
+                      onClick={() => navigate(`/turf/${turf._id}`)}
                     >
                       View Details
                       <ArrowRight className="w-4 h-4 ml-2" />
