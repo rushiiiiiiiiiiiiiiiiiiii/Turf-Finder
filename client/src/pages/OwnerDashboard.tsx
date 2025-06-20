@@ -221,16 +221,16 @@ const OwnerDashboard = () => {
                       <div className="w-full max-w-[150px]">
   {booking.screenshot && (
     <a
-      href={`${backendUrl}/${booking.screenshot.replace(/\\/g, "/")}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <img
-        src={`${backendUrl}/${booking.screenshot.replace(/\\/g, "/")}`}
-        alt="Payment Screenshot"
-        className="rounded border shadow hover:scale-105 transition-transform"
-      />
-    </a> {/* ✅ This was missing */}
+  href={`${backendUrl}/${booking.screenshot.replace(/\\/g, "/")}`}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <img
+    src={`${backendUrl}/${booking.screenshot.replace(/\\/g, "/")}`}
+    alt="Payment Screenshot"
+    className="rounded border shadow hover:scale-105 transition-transform"
+  />
+</a>
   )}
 </div>
 
