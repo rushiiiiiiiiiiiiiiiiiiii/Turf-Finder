@@ -39,14 +39,14 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-2">
             {userId ? (
               <>
-              {
-                localStorage.getItem('role') == 'user'?
-                <Link to="/dashboard">
-                  <Button variant="outline" size="sm">
-                    Dashboard
-                  </Button>
-                </Link>:""
-}
+                {
+                  localStorage.getItem('role') == 'user' ?
+                    <Link to="/dashboard">
+                      <Button variant="outline" size="sm">
+                        Dashboard
+                      </Button>
+                    </Link> : ""
+                }
                 <Button variant="outline" size="sm" onClick={handleLogout}>
                   <LogOut className="w-4 h-4 mr-2" />
                   Logout
@@ -81,11 +81,28 @@ const Navbar = () => {
               <div className="flex flex-col space-y-2 px-3 pt-4">
                 {userId ? (
                   <>
-                    <Link to="/dashboard">
-                      <Button variant="ghost" size="sm">
-                        Dashboard
-                      </Button>
-                    </Link>
+                    {localStorage.getItem("role") === "user" && (
+  <Link to="/dashboard">
+    <Button variant="ghost" size="sm">
+      Dashboard
+    </Button>
+  </Link>
+)}
+{localStorage.getItem("role") === "owner" && (
+  <Link to="/owner-dashboard">
+    <Button variant="ghost" size="sm">
+      Dashboard
+    </Button>
+  </Link>
+)}
+{localStorage.getItem("role") === "admin" && (
+  <Link to="/admin-dashboard">
+    <Button variant="ghost" size="sm">
+      Dashboard
+    </Button>
+  </Link>
+)}
+
                     <Button variant="outline" size="sm" onClick={handleLogout}>
                       <LogOut className="w-4 h-4 mr-2" />
                       Logout
