@@ -76,50 +76,41 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-border">
-              <div className="flex flex-col space-y-2 px-3 pt-4">
-                {userId ? (
-                  <>
-                    {localStorage.getItem("role") === "user" && (
-  <Link to="/dashboard">
-    <Button variant="ghost" size="sm">
-      Dashboard
-    </Button>
-  </Link>
-)}
-{localStorage.getItem("role") === "owner" && (
-  <Link to="/owner-dashboard">
-    <Button variant="ghost" size="sm">
-      Dashboard
-    </Button>
-  </Link>
-)}
-{localStorage.getItem("role") === "admin" && (
-  <Link to="/admin-dashboard">
-    <Button variant="ghost" size="sm">
-      Dashboard
-    </Button>
-  </Link>
+  <div className="md:hidden">
+    <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-border">
+      <div className="flex flex-col space-y-2 px-3 pt-4">
+        {userId ? (
+          <>
+            <Link to="/dashboard" onClick={() => setIsOpen(false)}>
+              <Button variant="ghost" size="sm">
+                Dashboard
+              </Button>
+            </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                handleLogout();
+                setIsOpen(false);
+              }}
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
+          </>
+        ) : (
+          <Link to="/login" onClick={() => setIsOpen(false)}>
+            <Button variant="outline" size="sm">
+              <User className="w-4 h-4 mr-2" />
+              Login
+            </Button>
+          </Link>
+        )}
+      </div>
+    </div>
+  </div>
 )}
 
-                    <Button variant="outline" size="sm" onClick={handleLogout}>
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Logout
-                    </Button>
-                  </>
-                ) : (
-                  <Link to="/login">
-                    <Button variant="outline" size="sm">
-                      <User className="w-4 h-4 mr-2" />
-                      Login
-                    </Button>
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
