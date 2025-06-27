@@ -12,6 +12,7 @@ import {
   CreditCard,
   QrCode,
   Star,
+  Loader,
 } from "lucide-react";
 import QRCode from "qrcode.react";
 
@@ -114,8 +115,14 @@ const UserDashboard = () => {
       link.click();
     }
   };
+  const Loader = () => (
+  <div className="flex justify-center items-center py-20">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary"></div>
+  </div>
+);
 
-  if (loading) return <div className="text-center py-10">Loading bookings...</div>;
+if (loading) return <Loader />;
+
 
   const totalSpent = [...activeBookings, ...pastBookings].reduce((acc, b) => acc + (b.totalAmount || 0), 0);
 

@@ -68,9 +68,13 @@ const AdminDashboard = () => {
     error: turfsError,
   } = useQuery<Turf[]>({ queryKey: ["turfs"], queryFn: fetchTurfs });
 
-  if (loadingUsers || loadingBookings || loadingTurfs) {
-    return <div className="text-center mt-10 text-lg text-gray-600">Loading dashboard data...</div>;
-  }
+const Loader = () => (
+  <div className="flex justify-center items-center py-20">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary"></div>
+  </div>
+);
+
+if (loadingUsers || loadingBookings || loadingTurfs) return <Loader />;
 
   if (usersError || bookingsError || turfsError) {
     return (

@@ -100,7 +100,13 @@ const TurfDetails = () => {
   if (id) fetchTurfAndSlots();
 }, [id, selectedDate]); // ✅ Added selectedDate to dependency array
 
-  if (loading) return <div className="text-center py-10">Loading turf details...</div>;
+  const Loader = () => (
+  <div className="flex justify-center items-center py-20">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary"></div>
+  </div>
+);
+
+if (loading) return <Loader />;
   if (!turf) return <div className="text-center py-10 text-red-600">Turf not found.</div>;
 
   const imageUrl = (path) => `${backendUrl}/${path.replace(/\\/g, "/")}`;
