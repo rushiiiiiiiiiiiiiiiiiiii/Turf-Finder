@@ -241,8 +241,8 @@ const BookingList = ({
                   <div className="flex justify-center">
                     <QRCode id={`qr-${booking._id}`} value={`TurfFinder-${booking._id}`} size={100} level="H" />
                   </div>
-                  <Button variant="outline" size="sm" className="mt-2 mx-auto block" onClick={() => onDownloadQR(booking._id)}>
-                    <Download className="w-3 h-3 mr-1" />Download
+                  <Button variant="outline" size="sm" className="mt-2 ml-5 mx-auto block" onClick={() => onDownloadQR(booking._id)}>
+                    <Download className="w-3 h-3 mr-1 ml-6" />Download
                   </Button>
                 </div>
               ) : (

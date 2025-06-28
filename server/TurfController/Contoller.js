@@ -72,17 +72,34 @@ exports.UserLogin = async (req, res) => {
 };
 
 // ---------------- TURF REGISTRATION ----------------
+
 exports.registerTurf = async (req, res) => {
   try {
     const {
-      name, location, address, city, state, pincode,
-      ownerName, ownerEmail, ownerPhone, ownerPassword,
-      sports, amenities, pricePerHour, description,
-      MinBookingPrice, ownerId
+      name,
+      location,
+      address,
+      city,
+      state,
+      pincode,
+      ownerName,
+      ownerEmail,
+      ownerPhone,
+      ownerPassword,
+      pricePerHour,
+      description,
+      MinBookingPrice,
+      ownerId
     } = req.body;
 
+    // Handle array fields: sports and amenities
+    const sports = Array.isArray(req.body.sports) ? req.body.sports : req.body.sports ? [req.body.sports] : [];
+    const amenities = Array.isArray(req.body.amenities) ? req.body.amenities : req.body.amenities ? [req.body.amenities] : [];
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(ownerPassword, 10);
+
+    // Get image file paths
     const imagePaths = req.files.map(file => file.path);
 
     const turf = await Turf.create({
@@ -96,8 +113,8 @@ exports.registerTurf = async (req, res) => {
       ownerEmail,
       ownerPhone,
       ownerPassword: hashedPassword,
-      sports: Array.isArray(sports) ? sports : [sports],
-      amenities: Array.isArray(amenities) ? amenities : [amenities],
+      sports,
+      amenities,
       pricePerHour,
       description,
       MinBookingPrice,
@@ -105,10 +122,10 @@ exports.registerTurf = async (req, res) => {
       images: imagePaths
     });
 
-
     res.status(201).json({ message: "Turf registered", turf });
+
   } catch (err) {
-    console.error(err); getOneTurfById
+    console.error("Turf Registration Error:", err);
     res.status(500).json({ message: "Failed to register turf" });
   }
 };

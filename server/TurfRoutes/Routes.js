@@ -19,7 +19,18 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: {
+    fieldSize: 25 * 1024 * 1024,     // Max size per field (25MB)
+    fileSize: 20 * 1024 * 1024,      // Max size per file (20MB)
+    files: 10,                       // Max number of files
+    fields: 30,                      // Max number of non-file fields
+    fieldNameSize: 255               // Max size of field name (in bytes)
+  }
+});
+
+
 router.post("/useregister", UserSignup);
 router.post("/login", UserLogin);
 router.get("/getallturf", getAllTurfs);

@@ -57,8 +57,6 @@ const PublicAuthRoute = ({ element }: { element: JSX.Element }) => {
   return element;
 };
 
-// 🌍 Owner Restriction Gate — wrap entire app
-// 🌍 Owner Restriction Gate — wrap entire app
 const OwnerOnlyAccessGuard = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const role = localStorage.getItem("role");

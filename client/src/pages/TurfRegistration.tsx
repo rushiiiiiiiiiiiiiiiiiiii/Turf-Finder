@@ -62,50 +62,52 @@ const TurfRegistration = () => {
   };
 
   const handleSave = async () => {
-    try {
-      const data = new FormData();
-      const ownerId = localStorage.getItem("userId");
-      if (ownerId) {
-        data.append("ownerId", ownerId);
-      }
-      // Append all fields
-      Object.entries(formData).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach((v) => data.append(key, v));
-        } else {
-          data.append(key, value);
-        }
-      });
-
-      // Convert base64 images to Blob (if needed)
-      formData.images.forEach((base64, idx) => {
-        const byteString = atob(base64.split(',')[1]);
-        const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
-        for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-        const blob = new Blob([ab], { type: mimeString });
-        data.append("images", blob, `image${idx}.png`);
-      });
-
-      const response = await fetch(`${backendUrl}/turf/register`, {
-        method: "POST",
-        body: data,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to register turf.");
-      }
-
-      const result = await response.json();
-      console.log("Turf registration successful:", result);
-      return result;
-    } catch (error) {
-      console.error("Error registering turf:", error);
+  try {
+    const data = new FormData();
+    const ownerId = localStorage.getItem("userId");
+    if (ownerId) {
+      data.append("ownerId", ownerId);
     }
-  };
+
+    // Append all fields except 'images'
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "images") return; // Skip images here
+      if (Array.isArray(value)) {
+        value.forEach((v) => data.append(key, v));
+      } else {
+        data.append(key, value);
+      }
+    });
+
+    // Convert base64 images to Blobs and append them
+    formData.images.forEach((base64, idx) => {
+      const byteString = atob(base64.split(',')[1]);
+      const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ab], { type: mimeString });
+      data.append("images", blob, `image${idx}.png`);
+    });
+
+    const response = await fetch(`${backendUrl}/turf/register`, {
+      method: "POST",
+      body: data,
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to register turf.");
+    }
+
+    const result = await response.json();
+    console.log("Turf registration successful:", result);
+    return result;
+  } catch (error) {
+    console.error("Error registering turf:", error);
+  }
+};
 
 
   const handleSubmit = async (e: React.FormEvent) => {
