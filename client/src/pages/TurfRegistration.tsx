@@ -145,26 +145,6 @@ const TurfRegistration = () => {
               <p className="text-green-700 mb-6">
                 The turf has been added to the platform. Below are the login credentials for the turf owner:
               </p>
-              {generatedCredentials && (
-                <Card className="bg-white border-green-300 mb-6">
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold mb-3">Owner Login Credentials</h3>
-                    <div className="space-y-2 text-left">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Email:</span>
-                        <span className="font-mono">{generatedCredentials.email}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Password:</span>
-                        <span className="font-mono">{generatedCredentials.password}</span>
-                      </div>
-                    </div>
-                    <Button onClick={copyCredentials} variant="outline" size="sm" className="mt-3 w-full">
-                      <Copy className="w-4 h-4 mr-2" /> Copy Credentials
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
               <div className="flex gap-4 justify-center">
                 <Button onClick={() => setShowSuccess(false)} className="btn-primary">
                   Register Another Turf
