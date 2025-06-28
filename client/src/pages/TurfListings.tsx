@@ -157,19 +157,20 @@ const TurfListings = () => {
             <Card key={index} className="hover-lift cursor-pointer">
               <CardContent className="p-0">
                 <div className="relative">
-                 <div className="flex overflow-x-auto space-x-2">
-  {turf.images?.slice(0, 5).map((img, idx) => (
-    <img
-      key={idx}
-      // src={`${backendUrl}/${img.replace(/\\/g, "/")}`}
-                      src={`${backendUrl}/${turf.images?.[0]?.replace(/\\/g, "/")}`}
-
-      alt={`Turf image ${idx + 1}`}
-      className="h-32 w-48 object-cover rounded"
-    />
-  ))}
-</div>
-
+                  {/* <img
+                    src={`${backendUrl}/${turf.images?.[0]?.replace(/\\/g, "/")}`}
+                    alt={turf.name}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                  /> */}
+                  <img
+  src={
+    turf.images?.length
+      ? `${backendUrl}/${turf.images[0].replace(/\\/g, "/")}`
+      : "https://via.placeholder.com/400x250?text=No+Image"
+  }
+  alt={turf.name}
+  className="w-full h-48 object-cover rounded-t-lg"
+/>
 
                   <div className="absolute top-4 left-4">
                     <Badge className="bg-green-500 text-white">Available</Badge>
