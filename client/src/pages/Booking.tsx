@@ -80,8 +80,12 @@ const Booking = () => {
   const minBookingPercentage = turf?.MinBookingPrice || 50;
   const advanceAmount = Math.round((minBookingPercentage / 100) * totalAmount);
   const remainingAmount = totalAmount - advanceAmount;
-
   const handleRazorpayPayment = () => {
+    if( userid == null){
+      navigate('/login')
+      return;
+    }
+
     if (!selectedSlot || !turf) return;
 
     navigate(`/paymentscreen/${turf._id}`, {
